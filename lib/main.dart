@@ -1,12 +1,17 @@
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Libraries.dart';
+// import 'package:chewie/chewie.dart';
 
 void main(List<String> args) {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false
+    ,
     home: MyApp(),
   ));
 }
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -17,22 +22,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Widget> library = [
-    http(),
-    provider(),
-    shared_preferences(),
-    dio(),
-    flutter_bloc(),
-    cachednetworkimage(),
-    flutterlocalnotifications()
+   AudioPlayer(),
+    videoPlayer(),
+    fontAwesome(),
+    Toast(),
+    DateConverter(),
+    EnglishWord(),
+    DigitToPersianWord()
   ];
   List names = [
-    'HTTP',
-    'Provider',
-    'Shared_Preferences',
-    'Dio',
-    'Flutter_bloc',
-    'Cached network image',
-    'Flutter local notifications'
+    'Audio Player',
+    'Video Player',
+    'Font Awesome',
+    'Toast',
+    'Shamsi Date',
+    'English Word',
+    'Digit To Persian Word'
   ];
 
   @override
