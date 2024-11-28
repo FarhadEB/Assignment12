@@ -1,221 +1,262 @@
+
 //The Library Details
-
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
+import 'package:shamsi_date/shamsi_date.dart';
+import 'package:english_words/english_words.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:digit_to_persian_word/digit_to_persian_word.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class http extends StatelessWidget {
-  const http({super.key});
+
+class AudioPlayer extends StatelessWidget {
+  const AudioPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('HTTP'),
-        backgroundColor: Colors.pink,
-      ),
-      body: Text(
-          ''' Details: This library is used for making HTTP requests. You can use it to access APIs and fetch data from the internet.
+        appBar: AppBar(
+          title: Text('AudioPlayer'),
+          backgroundColor: Colors.pink,
+        ),
+        body: Column(
+          children: [
+            Text('''
+            کتابخانه ` برای پخش فایل‌های صوتی در اپلیکیشن‌های  استفاده می‌شود. این کتابخانه به شما امکان می‌دهد تا به سادگی صوت را بارگذاری، پخش، متوقف و کنترل کنید. آن شما را قادر می‌سازد تا از تابع‌هایی مانند پخش در پس‌زمینه و مدیریت حالت پخش استفاده کنید.
 
-• Usage:
-    import 'package:http/http.dart' as http;
+        **ویژگی‌ها:**
+          - پشتیبانی از پخش صدا از URL و فایل‌های محلی.
+          - مدیریت وضعیت پخش (پخش، توقف، مکث و ...).
+          - پشتیبانی از حالت‌های مختلف پخش.
 
-  Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('https://api.example.com/data'));
-    if (response.statusCode == 200) {
-      // Process the data
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }'''),
+          '''),
+            Text('Click button to see'),
+            SizedBox(
+              height: 20,
+            ),
+            MaterialButton(
+              onPressed: () {
+                final player = AudioPlayer();
+                player.play(UrlSource('note1.wav'));
+              },
+              color: Colors.red,
+              child: Text('Clich It'),
+            )
+          ],
+        ));
+  }
+}
+
+class videoPlayer extends StatefulWidget {
+  @override
+  _MyVideoPlayerState createState() => _MyVideoPlayerState();
+}
+
+class _MyVideoPlayerState extends State<videoPlayer> {
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _videoPlayerController =
+        VideoPlayerController.asset('assets/videos/nature.mp4');
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      autoPlay: true,
+      looping: true,
+    );
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    _chewieController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Chewie(
+      controller: _chewieController,
     );
   }
 }
 
-class provider extends StatelessWidget {
-  const provider({super.key});
+class fontAwesome extends StatelessWidget {
+  const fontAwesome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Provider'),
+        title: Text('Font Awesome'),
         backgroundColor: Colors.pink,
       ),
-      body: Text(
-          '''• Details: This library is used for state management in Flutter. With Provider, you can easily manage the state of your application.
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+              '''تابخانه  به شما این امکان را می‌دهد که از مجموعه‌ای از آیکون‌های محبوب و زیبا در اپلیکیشن‌های Flutter خود استفاده کنید. این آیکون‌ها به سادگی در ویجت‌های Flutter قابل استفاده هستند و طراحی رابط کاربری شما را زیباتر می‌کنند.
 
-• Usage:
-    import 'package:flutter/material.dart';
-  import 'package:provider/provider.dart';
-
-  class Counter with ChangeNotifier {
-    int _count = 0;
-
-    int get count => _count;
-
-    void increment() {
-      _count++;
-      notifyListeners();
-    }
-  }
-
-  void main() {
-    runApp(
-      ChangeNotifierProvider(
-        create: (context) => Counter(),
-        child: MyApp(),
+**ویژگی‌ها:**
+- دسترسی به هزاران آیکون مختلف.
+- سفارشی‌سازی رنگ و اندازه آیکون‌ها.
+- استفاده آسان در برنامه.
+'''),
+          FaIcon(
+            FontAwesomeIcons.heart,
+            size: 100.0,
+            color: Colors.red,
+          ),
+        ],
       ),
-    );
-  }'''),
     );
   }
 }
 
-class shared_preferences extends StatelessWidget {
-  const shared_preferences({super.key});
-
+class Toast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Shared_preferences'),
-        backgroundColor: Colors.pink,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Center(
+            child: Text(
+              'Flutter Toast ',
+              style: TextStyle(color: Colors.white, fontSize: 40),
+            ),
+          ),
+          backgroundColor: Colors.pink,
+        ),
+        body: Column(
+          children: [
+            Text(
+                ''' برای نمایش نوارهای اعلان  در اپلیکیشن‌های  استفاده می‌شود. این نوارهای اعلان معمولاً برای نمایش پیام‌های کوتاه و غیر مزاحم به کاربر، مانند موفقیت یا خطا، به کار می‌روند.
+
+**ویژگی‌ها:**
+- نمایش پیام‌های سفارشی به صورت غیر مزاحم.
+- سفارشی‌سازی زمان نمایش و موقعیت نوار.
+- طراحی ساده و کاربرپسند.
+'''),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Fluttertoast.showToast(
+                    msg: 'This is a Toast Message Mr Farhad!',
+                    // toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                  );
+                },
+                child: Text("Show Toast"),
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Text(
-          '''• Details: This library is used for storing simple and small data locally. You can use it to save user settings or state.
-
-• Usage:
-    import 'package:shared_preferences/shared_preferences.dart';
-
-  Future<void> saveData(String key, String value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
-  }
-
-  Future<String?> loadData(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(key);
-  }'''),
     );
   }
 }
 
-class dio extends StatelessWidget {
-  const dio({super.key});
-
+class DateConverter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // تاریخ میلادی که می‌خواهیم تبدیل کنیم
+    DateTime gregorianDate = DateTime(2024, 11, 28);
+
+    // تبدیل به تاریخ شمسی
+    ShamsiDate shamsiDate = ShamsiDate.fromDateTime(gregorianDate);
+ 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dio'),
-        backgroundColor: Colors.pink,
+        title: Text('تبدیل تاریخ میلادی به شمسی'),
       ),
-      body: Text(
-          '''• Details: A powerful library for making HTTP requests that provides features like file uploads, cookie management, and support for interceptors.
-
-• Usage:
-    import 'package:dio/dio.dart';
-
-  Future<void> fetchData() async {
-    var dio = Dio();
-    final response = await dio.get('https://api.example.com/data');
-    // Process the data
-  }'''),
+      body: Center(
+        child: Text(
+          'تاریخ شمسی: ${shamsiDate.year}/${shamsiDate.month}/${shamsiDate.day}',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
     );
   }
 }
 
-class flutter_bloc extends StatelessWidget {
-  const flutter_bloc({super.key});
+
+
+class EnglishWord extends StatelessWidget {
+  const EnglishWord({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter_bloc'),
+        title: Text('English Word'),
         backgroundColor: Colors.pink,
       ),
-      body: Text(
-          '''• Details: This library is designed for state management using the BLoC (Business Logic Component) pattern. This approach helps separate business logic from UI.
+      body: Column(
+        children: [
+          Text(
+              '''برای تولید و نمایش کلمات تصادفی و جملات در زبان انگلیسی استفاده می‌شود. این کتابخانه مفید برای برنامه‌های آموزشی، بازی‌های کلمه‌ای و پروژه‌هایی است که به کلمات نیاز دارند.
 
-• Usage:
-    import 'package:flutter_bloc/flutter_bloc.dart';
-
-  class CounterCubit extends Cubit<int> {
-    CounterCubit() : super(0);
-
-    void increment() => emit(state + 1);
-  }
-
-  void main() {
-    runApp(
-      BlocProvider(
-        create: (context) => CounterCubit(),
-        child: MyApp(),
+**ویژگی‌ها:**
+- تولید کلمات و عبارات تصادفی.
+- قابلیت استفاده در بازی‌ها و برنامه‌های آموزشی.
+- پایه‌گذاری بر روی پایگاه داده‌ای از کلمات انگلیسی.'''),
+          SizedBox(
+            height: 20,
+          ),
+          Text('A usage of this Package👎'),
+          SizedBox(
+            height: 20,
+          ),
+          Text('This is an ex:👉 ${adjectives.last}'),
+        ],
       ),
-    );
-  }
-  '''),
-    );
-  }
-}
-
-class cachednetworkimage extends StatelessWidget {
-  const cachednetworkimage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('cachednetworkimage'),
-        backgroundColor: Colors.pink,
-      ),
-      body: Text(
-          '''• Details: This library is used for loading and caching images from the internet. This method helps reduce loading times and data consumption.
-
-• Usage:
-    import 'package:cached_network_image/cached_network_image.dart';
-
-  CachedNetworkImage(
-    imageUrl: "https://example.com/image.jpg",
-    placeholder: (context, url) => CircularProgressIndicator(),
-    errorWidget: (context, url, error) => Icon(Icons.error),
-  );
-  '''),
     );
   }
 }
 
-class flutterlocalnotifications extends StatelessWidget {
-  const flutterlocalnotifications({super.key});
+class DigitToPersianWord extends StatelessWidget {
+  const DigitToPersianWord({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('flutterlocalnotifications'),
+        title: Text('Digit To Persian Word'),
         backgroundColor: Colors.pink,
       ),
-      body: Text(
-          '''• Details: This library is used to send local notifications on mobile devices. You can use it to send notifications to users.
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+              '''ک` برای تبدیل اعداد به کلمات فارسی استفاده می‌شود. این کتابخانه به شما امکان می‌دهد تا اعداد را به راحتی به صورت کلمات فارسی نمایش دهید که برای نمایش مقادیر مالی و دیگر موقعیت‌ها بسیار مفید است.
 
-• Usage:
-    import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  Future<void> showNotification() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails('your channel id', 'your channel name',
-            'your channel description',
-            importance: Importance.max, priority: Priority.high, showWhen: false);
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-
-ChatGPT 4 | Midjourney | Claude | Suno, [11/26/2024 9:10 AM]
-    await flutterLocalNotificationsPlugin.show(0, 'New Alert', 'How to show Notification in Flutter',
-        platformChannelSpecifics, payload: 'item x');
-  }'''),
+**ویژگی‌ها:**
+- تبدیل اعداد به کلمات فارسی.
+- مفید برای نمایش مقادیر مالی و آماری به صورت متن.
+- ساده و کاربرپسند.'''),
+          //تبدیل رقم به حروف بدون تبدیل اعداد
+          Text(DigitToWord.toWord("123456", StrType.NumWord,
+              isMoney: true)), // 123 هزارو 456 تومان
+          //)تبدیل عدد به حروف همراه با تبدیل اعداد
+          Text(
+            DigitToWord.toWord("123456", StrType.StrWord),
+          ), //صد و بیست و سه هزارو چهارصدو پنجاه و شش
+          //تبدیل رقم به حروف
+          Text(DigitToWord.toWord("123.456", StrType.NumWord,
+              isMoney: true, separator: ".")), // 123 هزارو 456 تومان
+          //جدا سازی سه رقمی اعداد به صورت معمول
+          Text(
+            DigitFormat.convert("123456", separator: ","),
+          ), //123,456
+          //به جدا سازی سه رقمی اعداد به صورت (TextInputFormatter)
+          TextFormField(inputFormatters: [DigitInputFormat()]),
+        ],
+      ),
     );
   }
 }
